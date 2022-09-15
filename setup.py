@@ -1,6 +1,5 @@
 import os
-from setuptools import setup
-
+from setuptools import setup, find_packages
 # Utility function to read the README file.
 # Used for the long_description.  It's nice, because now 1) we have a top level
 # README file and 2) it's easier to type in the README file than to put a raw
@@ -17,7 +16,7 @@ setup(
     license = "Apache License 2.0",
     keywords = "stix2.1",
     url = "https://github.com/typedb-osi/typedb-cti",
-    packages=['typedbcti'],
+    packages=find_packages(),
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",
