@@ -8,7 +8,7 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "typedb-cti",
+    name = "typedbcti",
     version = "0.1.0",
     author = "Paolo Di Prodi",
     author_email = "paolo@priam.ai",
@@ -16,7 +16,10 @@ setup(
     license = "Apache License 2.0",
     keywords = "stix2.1",
     url = "https://github.com/typedb-osi/typedb-cti",
-    packages=find_packages(),
+    packages=find_packages(where='.',include=['typedbcti*']),
+    #package_dir = {'':'typedbcti'},
+    # trying to add files...
+    include_package_data = True,
     long_description=read('README.md'),
     classifiers=[
         "Development Status :: 3 - Alpha",
@@ -24,11 +27,6 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3',
     ],
-    package_data={
-        'typedb-cti': [
-            'typedbcti/data/mitre/*.json'
-        ]
-    },
    install_requires=['typedb-client==2.9.0', 'networkx[default]', 'tabulate','pandas'], #external packages as dependencies
    scripts=[
             'typedbcti/scripts/migrate.py',
