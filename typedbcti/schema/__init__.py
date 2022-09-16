@@ -21,11 +21,9 @@
 import os
 import logging
 logger = logging.getLogger(__name__)
-
 from typedb.client import *
 
-schema_path = os.path.join(os.path.dirname(__file__), 'cti-schema.tql')
-rules_path = os.path.join(os.path.dirname(__file__), 'cti-rules.tql')
+from importlib.resources import files
 
 def initialise_database(uri, database, force=False):
     client = TypeDB.core_client(uri)
@@ -36,10 +34,10 @@ def initialise_database(uri, database, force=False):
             raise ValueError(f"Database '{database}' already exists")
     client.databases().create(database)
     session = client.session(database, SessionType.SCHEMA)
-    with open(schema_path, "r") as schema_file:
-        schema = schema_file.read()
-    with open(rules_path, "r") as rules_file:
-        rules = rules_file.read()
+
+    schema = files('typedbcti.schema').joinpath('cti-schema.tql').read_text()
+    rules = files('typedbcti.schema').joinpath('cti-rules.tql').read_text()
+
     logger.info('.....')
     logger.info('Inserting schema and rules...')
     logger.info('.....')
