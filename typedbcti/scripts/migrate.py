@@ -32,9 +32,10 @@ parser.add_argument('--database', dest='database', default='cti', help='Database
 parser.add_argument('--batch_size', dest='batch_size', default=50, help='Transaction batch size during migration')
 parser.add_argument('--threads', dest='threads', default=16, help='Number of loading threads  with (recommend 2*cores)')
 parser.add_argument('--data-path', dest='data_path', default='data/mitre', help='Path to STIX-compliant data files')
-parser.add_argument('--clean', dest='clean', default=False, help='Delete existing database if it exists before loading.')
+parser.add_argument('--clean', dest='clean', default=False,
+                    help='Delete existing database if it exists before loading.')
 parser.add_argument('--mitre_deprecated', dest='ignore_deprecated_mitre', default=False,
-						help='Set this flag to True to ignore objects with x_mitre_deprecated set to True.')
+                    help='Set this flag to True to ignore objects with x_mitre_deprecated set to True.')
 
 args = parser.parse_args()
 logging.basicConfig(level=logging.INFO)  # when debugging, set to logging.DEBUG
@@ -44,12 +45,12 @@ initialise_database(args.uri, args.database, args.clean)
 
 if args.ignore_deprecated_mitre == "True":
     print(f"Ignoring objects with x_mitre_deprecated set to True...")
-    ignore_conditions=[{'x_mitre_deprecated':True}]
+    ignore_conditions = [{'x_mitre_deprecated': True}]
 else:
-	ignore_conditions = []
+    ignore_conditions = []
 
 migrator = StixMigrator(args.uri, args.database, args.batch_size, args.threads)
-migrator.migrate(data_path=args.data_path,ignore_conditions=ignore_conditions)
+migrator.migrate(data_path=args.data_path, ignore_conditions=ignore_conditions)
 migrator.close()
 end = timer()
 time_in_sec = end - start

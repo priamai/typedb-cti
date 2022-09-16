@@ -22,8 +22,8 @@
 import json
 import os
 
-from stix.query import StixInsertGenerator
-from stix.typedb_inserter import TypeDBInserter
+from .query import StixInsertGenerator
+from .typedb_inserter import TypeDBInserter
 
 
 class StixMigrator:

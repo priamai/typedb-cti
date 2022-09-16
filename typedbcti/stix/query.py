@@ -21,8 +21,7 @@
 
 import logging
 
-from stix.type_mapping import stix_entity_to_typedb, stix_attributes_to_typedb, stix_relation_to_typedb
-
+from .type_mapping import stix_entity_to_typedb, stix_attributes_to_typedb, stix_relation_to_typedb
 
 def sanitise_string(string_value):
     return string_value.replace("'", "")
